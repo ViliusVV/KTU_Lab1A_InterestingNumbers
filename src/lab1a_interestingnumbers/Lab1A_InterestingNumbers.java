@@ -7,6 +7,8 @@ package lab1a_interestingnumbers;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  *
@@ -20,7 +22,6 @@ public class Lab1A_InterestingNumbers {
     public static void main(String[] args) {
         Lab1A_InterestingNumbers inz1 = new Lab1A_InterestingNumbers();
         Printer print = new Printer();
-        //maziausia reiksme 31*31 + 1 = 962; 32*32 = 1024
         print.Print(inz1.NDigitNumber(962, 1521));
         System.out.println("Kitas: ");
         print.Print(inz1.NDigitNumber(999_999_9, 114_000_00));
@@ -37,24 +38,25 @@ public class Lab1A_InterestingNumbers {
     */
     List<Long> NDigitNumber(long k, long n) {
         List<Long> l = new ArrayList<>();
+        System.out.printf("Testuojama nuo %d iki %d\n", k, n);
         // a - int, which square is  >= k
-        // b - int, which square is  <= n
+        // b - int, which square is  <= n 
         int a = (int) Math.ceil((Math.sqrt(k)));
         int b = (int) Math.floor((Math.sqrt(n)));
-        System.out.println("a: " + a + ", b: " + b);
-        System.out.println("a*a: " + a * a + ", b*b: " + b * b);
         for (int i = a; i <= b; i++) {          
             long sk = i * i;
             int len = String.valueOf(sk).length();
             int pr = (int) sk / (int) (Math.pow(10, len - 2));
             int pb = (int) sk % 100;
             int sum = pr + pb;
-            //jeigu suma yra naturalaus skaiciaus kvadratas
+            //whole number square
             if (Math.sqrt(sum) == Math.round(Math.sqrt(sum))) {
                 //System.out.println(sk + " " + pr + " " + pb + " " + sum);
                 l.add(sk);
             }
         }
+        Collections.sort(l);
+        Collections.reverse(l);
         return l;
     }
 
